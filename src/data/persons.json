@@ -1,3 +1,20 @@
 [
-
+    {
+        "id": "1a",
+        "name": "first",
+        "age": 20,
+        "position": "front"
+    },
+    {
+        "id": 2,
+        "name": "second",
+        "age": 25,
+        "position": "back"
+    },
+    {
+        "id": 3,
+        "name": "third",
+        "age": 30,
+        "position": "full-stack"
+    }
 ]
