@@ -1,6 +1,7 @@
 const persons = require('../data/persons.json')
 const { v4: uuidv4 } =  require('uuid')
 const { writeDataToFile } = require('../utils')
+const path = require('path')
 
 function findAll() {
     return new Promise((resolve, reject) => {
@@ -18,8 +19,9 @@ function findById(id) {
 function createNew(person) {
     return new Promise((resolve, reject) => {
         const newPerson = {id: uuidv4() ,...person}
+        console.log(newPerson)
         persons.push(newPerson)
-        writeDataToFile('../date/person.json', persons)
+        writeDataToFile(path.resolve('person.json'), persons)
         resolve(newPerson)
     })
 }
@@ -29,3 +31,4 @@ module.exports = {
     findById,
     createNew
 }
+
