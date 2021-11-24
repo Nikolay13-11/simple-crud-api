@@ -1,6 +1,12 @@
 const http = require('http')
 const dotenv = require('dotenv')
-const { getAllPersons, getPerson, addPerson } = require('./controls/personController')
+const { 
+    getAllPersons,
+    getPerson,
+    addPerson,
+    updatePerson,
+    deletePerson
+    } = require('./controls/personController')
 
 const server = http.createServer((req, res) => {
     if(req.url === '/person' && req.method === 'GET') {
@@ -11,6 +17,14 @@ const server = http.createServer((req, res) => {
     } 
     else if ( req.url === '/person' && req.method === 'POST') {
         addPerson(req, res)
+    }
+    else if(req.url.match(/\/person\/([a-z0-9]+)/) && req.method === 'PUT') {
+        const id = req.url.split('/')[2]
+        updatePerson(req, res, id)
+    } 
+    else if(req.url.match(/\/person\/([a-z0-9]+)/) && req.method === 'DELETE') {
+        const id = req.url.split('/')[2]
+        deletePerson(req, res, id)
     }
     else {
         res.writeHead(404,  { 'Content-Type': 'application/json' })

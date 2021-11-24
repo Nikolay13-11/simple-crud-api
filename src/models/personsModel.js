@@ -26,9 +26,34 @@ function createNew(person) {
     })
 }
 
+function update(id, person) {
+    return new Promise((resolve, reject) => {
+        const index = persons.findIndex(i => i.id === id)
+        persons[index] = {
+            id,
+            ...person
+        }
+
+        writeDataToFile(path.resolve('person.json'), persons)
+        resolve(persons[index])
+    })
+}
+
+function remove(id) {
+    return new Promise((resolve, reject) => {
+
+        const deletePerson = persons.filter(i => i.id !== id)
+
+        writeDataToFile(path.resolve('person.json'), deletePerson)
+        resolve()
+    })
+}
+
 module.exports = {
     findAll,
     findById,
-    createNew
+    createNew,
+    update,
+    remove
 }
 

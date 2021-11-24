@@ -33,33 +33,95 @@ async function getPerson(req, res, id) {
 
 async function addPerson(req, res) {
     try {
-        // const person = {
-        //     name: 'someName',
-        //     age: 30,
-        //     hobbies: []
-        // }
 
         let body = ''
-        req.on('data', (chunck) => {
-            body += chunck.toString()
+
+        req.on('data',  (chunk) => {
+            body += chunk.toString()
         })
 
-        req.on('end', () => {
-            const {id, name, age, hobbies} = JSON.parse(body)
-            console.log('id', id)
-            console.log('name', name)
-            console.log('age', age)
-            console.log('hobbies', hobbies)
-            const newPerson = await Person.createNew({
-                name: name,
-                age: age,
-                hobbies: hobbies
-            })
-            res.writeHead(201, { 'Content-Type': 'application/json' })
-            return res.end(JSON.stringify(newPerson))
+        req.on('end', async () => {
+            const { name, age, hobbies } = JSON.parse(body)
 
+            if(name && age && hobbies){
+                const newPerson = await Person.createNew({
+                    name,
+                    age,
+                    hobbies
+                })
+                res.writeHead(201, { 'Content-Type': 'application/json' })
+                return res.end(JSON.stringify(newPerson))
+            }
+            else {
+                res.writeHead(400,  { 'Content-Type': 'application/json' })
+                res.end(JSON.stringify({
+                    message: 'Pass bad propertis'
+                }))
+            }
         })
 
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+            
+async function updatePerson(req, res, id) {
+    try {
+
+        const person = await Person.findById(id)
+
+        if(!person) {
+            res.writeHead(404,  { 'Content-Type': 'application/json' })
+            res.end(JSON.stringify({
+                message: 'Person did not find'
+            }))
+        } else {
+            
+        let body = ''
+
+        req.on('data',  (chunk) => {
+            body += chunk.toString()
+        })
+
+        req.on('end', async () => {
+            const { name, age, hobbies } = JSON.parse(body)
+
+            const personUpd = {
+                title: name || person.name,
+                age: age || person.age,
+                hobbies: hobbies || person.hobbies
+            }
+
+                const updPerson = await Person.update(id, personUpd)
+
+                res.writeHead(201, { 'Content-Type': 'application/json' })
+                return res.end(JSON.stringify(updPerson))
+        })
+        }
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function deletePerson(req, res, id) {
+    try {
+        const person = await Person.findById(id)
+
+        if(!person) {
+            res.writeHead(404, { 'Content-Type': 'application/json' })
+            res.end(JSON.stringify({
+                message: 'Person Not Found'
+            }))
+        } 
+        else {
+            await Person.remove(id)
+            res.writeHead(200, { 'Content-Type': 'application/json' })
+            res.end(JSON.stringify({
+                message: `Product ${id} removed`}))
+            }
 
     } catch (error) {
         console.log(error)
@@ -69,6 +131,8 @@ async function addPerson(req, res) {
 module.exports = {
     getAllPersons,
     getPerson,
-    addPerson
+    addPerson,
+    updatePerson,
+    deletePerson
 }
 
