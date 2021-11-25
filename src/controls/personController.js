@@ -55,7 +55,7 @@ async function addPerson(req, res) {
             else {
                 res.writeHead(400,  { 'Content-Type': 'application/json' })
                 res.end(JSON.stringify({
-                    message: 'Pass bad propertis'
+                    message: `Don't pass required params`
                 }))
             }
         })
@@ -74,7 +74,7 @@ async function updatePerson(req, res, id) {
         if(!person) {
             res.writeHead(404,  { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
-                message: 'Person did not find'
+                message: 'Person Not Found'
             }))
         } else {
             

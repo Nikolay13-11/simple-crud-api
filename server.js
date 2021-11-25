@@ -6,7 +6,9 @@ const {
     addPerson,
     updatePerson,
     deletePerson
-    } = require('./controls/personController')
+    } = require('./src/controls/personController')
+    
+    // /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 const server = http.createServer((req, res) => {
     if(req.url === '/person' && req.method === 'GET') {
@@ -35,11 +37,8 @@ const server = http.createServer((req, res) => {
 })
 
 dotenv.config({
-    path:'../.env'
+    path:'.env'
 });
-
-
-
 
 const PORT = process.env.PORT
 

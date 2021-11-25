@@ -1,11 +1,10 @@
 const persons = require('../data/persons.json')
 const { v4: uuidv4 } =  require('uuid')
-const { writeDataToFile } = require('../utils')
+const { writeDataToFile } = require('../../utils')
 const path = require('path')
 
 function findAll() {
     return new Promise((resolve, reject) => {
-        console.log(persons)
         resolve(persons)
     })
 }
@@ -21,7 +20,7 @@ function createNew(person) {
     return new Promise((resolve, reject) => {
         const newPerson = {id: uuidv4() ,...person}
         persons.push(newPerson)
-        writeDataToFile(path.resolve('./data/persons.json'), persons)
+        writeDataToFile(path.resolve('./src/data/persons.json'), persons)
         resolve(newPerson)
     })
 }
@@ -34,7 +33,7 @@ function update(id, person) {
             ...person
         }
 
-        writeDataToFile(path.resolve('./data/persons.json'), persons)
+        writeDataToFile(path.resolve('./src/data/persons.json'), persons)
         resolve(persons[index])
     })
 }
@@ -43,7 +42,7 @@ function remove(id) {
     return new Promise((resolve, reject) => {
 
         const deletePerson = persons.filter(i => i.id !== id)
-        writeDataToFile(path.resolve('./data/persons.json'), deletePerson)
+        writeDataToFile(path.resolve('./src/data/persons.json'), deletePerson)
         resolve()
     })
 }
