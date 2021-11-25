@@ -7,7 +7,7 @@ const {
     updatePerson,
     deletePerson
     } = require('./src/controls/personController')
-const { regExpAll, regExpUUID } = require('./src/data/helper')    
+const { regExpAll, regExpUUID } = require('./src/helper')    
     
 const server = http.createServer((req, res) => {
     let ID = req.url.split('/')[2]
