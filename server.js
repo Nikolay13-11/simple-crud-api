@@ -7,24 +7,24 @@ const {
     updatePerson,
     deletePerson
     } = require('./src/controls/personController')
+const { regExp } = require('./src/data/helper')    
     
-    // /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-
 const server = http.createServer((req, res) => {
     if(req.url === '/person' && req.method === 'GET') {
+        console.log(req.url.split('/'));
         getAllPersons(req, res)
-    } else if(req.url.match(/\/person\/([a-z0-9]+)/) && req.method === 'GET') {
+    } else if(req.url.match(regExp) && req.method === 'GET') {
         const id = req.url.split('/')[2]
         getPerson(req, res, id)
-    } 
+    }
     else if ( req.url === '/person' && req.method === 'POST') {
         addPerson(req, res)
     }
-    else if(req.url.match(/\/person\/([a-z0-9]+)/) && req.method === 'PUT') {
+    else if(req.url.match(regExp) && req.method === 'PUT') {
         const id = req.url.split('/')[2]
         updatePerson(req, res, id)
     } 
-    else if(req.url.match(/\/person\/([a-z0-9]+)/) && req.method === 'DELETE') {
+    else if(req.url.match(regExp) && req.method === 'DELETE') {
         const id = req.url.split('/')[2]
         deletePerson(req, res, id)
     }

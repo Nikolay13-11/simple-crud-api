@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,11 @@
   "homepage": "https://github.com/Nikolay13-11/simple-crud-api#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "uuid": "^8.3.2",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.64.3",
+    "webpack-cli": "^4.9.1"
   }
 }
