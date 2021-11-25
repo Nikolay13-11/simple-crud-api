@@ -19,7 +19,6 @@ const server = http.createServer((req, res) => {
     }
     else {
         if(req.url === '/person' && req.method === 'GET') {
-            console.log(req.url.split('/'));
             getAllPersons(req, res)
         } else if(req.url.match(regExpAll) && req.method === 'GET') {
             const id = req.url.split('/')[2]

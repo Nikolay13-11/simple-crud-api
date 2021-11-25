@@ -3,18 +3,20 @@ const Person = require('../models/personsModel')
 async function getAllPersons(req, res) {
     try {
         const persons = await Person.findAll()
-
         res.writeHead(200, { 'Content-Type': 'application/json' })
         res.end(JSON.stringify(persons))
     } catch (error) {
-        console.log(error)
+        res.writeHead(500,  { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({
+            message: 'Something went wrong'
+        }))
     }
 }
 
 async function getPerson(req, res, id) {
     try {
         const person = await Person.findById(id)
-
+        
         if(!person) {
             res.writeHead(404, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
@@ -27,7 +29,10 @@ async function getPerson(req, res, id) {
         }
 
     } catch (error) {
-        console.log(error)
+        res.writeHead(500,  { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({
+            message: 'Something went wrong'
+        }))
     }
 }
 
@@ -62,7 +67,10 @@ async function addPerson(req, res) {
 
 
     } catch (error) {
-        console.log(error)
+        res.writeHead(500,  { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({
+            message: 'Something went wrong'
+        }))
     }
 }
             
@@ -102,14 +110,15 @@ async function updatePerson(req, res, id) {
 
 
     } catch (error) {
-        console.log(error)
-    }
+        res.writeHead(500,  { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({
+            message: 'Something went wrong'
+        }))    }
 }
 
 async function deletePerson(req, res, id) {
     try {
         const person = await Person.findById(id)
-
         if(!person) {
             res.writeHead(404, { 'Content-Type': 'application/json' })
             res.end(JSON.stringify({
@@ -124,8 +133,10 @@ async function deletePerson(req, res, id) {
             }
 
     } catch (error) {
-        console.log(error)
-    }
+        res.writeHead(500,  { 'Content-Type': 'application/json' })
+        res.end(JSON.stringify({
+            message: 'Something went wrong'
+        }))    }
 }
 
 module.exports = {
