@@ -97,7 +97,7 @@ async function updatePerson(req, res, id) {
             const { name, age, hobbies } = JSON.parse(body)
 
             const personUpd = {
-                title: name || person.name,
+                name: name || person.name,
                 age: age || person.age,
                 hobbies: hobbies || person.hobbies
             }
@@ -128,9 +128,8 @@ async function deletePerson(req, res, id) {
         } 
         else {
             await Person.remove(id)
-            res.writeHead(200, { 'Content-Type': 'application/json' })
-            res.end(JSON.stringify({
-                message: `Person ${id} removed`}))
+            res.writeHead(204, { 'Content-Type': 'application/json' })
+            res.end()
             }
 
     } catch (error) {
