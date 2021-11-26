@@ -1,4 +1,5 @@
 const Person = require('../models/personsModel')
+const persons = require('../data/persons.json')
 
 async function getAllPersons(req, res) {
     try {

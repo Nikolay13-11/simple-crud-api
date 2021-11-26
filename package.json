@@ -7,7 +7,8 @@
     "node": "node server.js",
     "start:dev": "nodemon server.js",
     "build": "webpack",
-    "start:prod": "webpack serve"
+    "start:prod": "webpack serve",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
