@@ -7,7 +7,7 @@
     "node": "node server.js",
     "start:dev": "nodemon server.js",
     "build": "webpack",
-    "start:prod": "webpack serve",
+    "start:prod": "webpack --mode production && node ./dist/bundle",
     "test": "jest"
   },
   "repository": {
