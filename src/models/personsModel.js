@@ -1,17 +1,16 @@
-const persons = require('../data/persons.json')
 const { v4: uuidv4 } =  require('uuid')
-const { writeDataToFile } = require('../../utils')
-const path = require('path')
+
+let BD = []
 
 function findAll() {
     return new Promise((resolve, reject) => {
-        resolve(persons)
+        resolve(BD)
     })
 }
 
 function findById(id) {
-    const person = persons.find((p) => p.id === id)
     return new Promise((resolve, reject) => {
+        const person = BD.find((p) => p.id === id)
         resolve(person)
     })
 }
@@ -19,33 +18,51 @@ function findById(id) {
 function createNew(person) {
     return new Promise((resolve, reject) => {
         const newPerson = {id: uuidv4() ,...person}
-        persons.push(newPerson)
-        writeDataToFile(path.resolve('./src/data/persons.json'), persons)
+        BD.push(newPerson)
         resolve(newPerson)
     })
 }
 
 function update(id, person) {
     return new Promise((resolve, reject) => {
-        const index = persons.findIndex(i => i.id === id)
-        persons[index] = {
+        const index = BD.findIndex(i => i.id === id)
+        BD[index] = {
             id,
             ...person
         }
-
-        writeDataToFile(path.resolve('./src/data/persons.json'), persons)
-        resolve(persons[index])
+        resolve(BD[index])
     })
 }
+
 
 function remove(id) {
     return new Promise((resolve, reject) => {
-
-        const deletePerson = persons.filter(i => i.id !== id)
-        writeDataToFile(path.resolve('./src/data/persons.json'), deletePerson)
+        BD = BD.filter(i => i.id !== id)
         resolve()
     })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = {
     findAll,

@@ -11,7 +11,8 @@ const { regExpAll, regExpUUID } = require('./src/helper')
     
 const server = http.createServer((req, res) => {
     let ID = req.url.split('/')[2]
-    if(ID && !ID.match(regExpUUID)) {
+    let personURL = req.url.split('/')[1]
+    if(ID && !ID.match(regExpUUID) && personURL == 'person' && !req.url.split('/')[3]) {
         res.writeHead(400,  { 'Content-Type': 'application/json' })
         res.end(JSON.stringify({
             message: 'ID not valid'
@@ -50,7 +51,6 @@ dotenv.config({
 
 const PORT = process.env.PORT
 
-// server.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 if(!module.parent){
     server.listen(PORT, () =>
       console.log(`Server running on port ${PORT}`),

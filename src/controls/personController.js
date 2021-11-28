@@ -1,5 +1,4 @@
 const Person = require('../models/personsModel')
-const persons = require('../data/persons.json')
 
 async function getAllPersons(req, res) {
     try {
@@ -66,7 +65,6 @@ async function addPerson(req, res) {
             }
         })
 
-
     } catch (error) {
         res.writeHead(500,  { 'Content-Type': 'application/json' })
         res.end(JSON.stringify({
@@ -104,7 +102,7 @@ async function updatePerson(req, res, id) {
 
                 const updPerson = await Person.update(id, personUpd)
 
-                res.writeHead(201, { 'Content-Type': 'application/json' })
+                res.writeHead(200, { 'Content-Type': 'application/json' })
                 return res.end(JSON.stringify(updPerson))
         })
         }
